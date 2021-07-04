@@ -1,0 +1,113 @@
+   Compiling stadistics v0.1.0 (/home/daath/projects/stadistics)
+error[E0277]: the type `[i32]` cannot be indexed by `u32`
+ --> src/main.rs:4:25
+  |
+4 |     let pivote: usize = v[fin as u32];
+  |                         ^^^^^^^^^^^^^ slice indices are of type `usize` or ranges of `usize`
+  |
+  = help: the trait `SliceIndex<[i32]>` is not implemented for `u32`
+  = note: required because of the requirements on the impl of `Index<u32>` for `Vec<i32>`
+
+error[E0308]: mismatched types
+ --> src/main.rs:6:22
+  |
+6 |     for j in inicio..&(*fin as u32 - 1) as usize {
+  |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |                      |
+  |                      expected `&mut usize`, found `usize`
+  |                      help: consider mutably borrowing here: `&mut (&(*fin as u32 - 1) as usize)`
+
+error[E0277]: the trait bound `&mut usize: Step` is not satisfied
+ --> src/main.rs:6:14
+  |
+6 |     for j in inicio..&(*fin as u32 - 1) as usize {
+  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Step` is not implemented for `&mut usize`
+  |
+  = help: the following implementations were found:
+            <usize as Step>
+  = note: required because of the requirements on the impl of `Iterator` for `std::ops::Range<&mut usize>`
+  = note: required because of the requirements on the impl of `IntoIterator` for `std::ops::Range<&mut usize>`
+  = note: required by `into_iter`
+
+error[E0277]: the type `[i32]` cannot be indexed by `&mut usize`
+ --> src/main.rs:7:5
+  |
+7 |     if v[j] <= pivote as i32 {
+  |        ^^^^ slice indices are of type `usize` or ranges of `usize`
+  |
+  = help: the trait `SliceIndex<[i32]>` is not implemented for `&mut usize`
+  = note: required because of the requirements on the impl of `Index<&mut usize>` for `Vec<i32>`
+
+error[E0614]: type `usize` cannot be dereferenced
+ --> src/main.rs:9:13
+  |
+9 |         v.swap(*i,*j);
+  |                ^^
+
+error[E0614]: type `usize` cannot be dereferenced
+  --> src/main.rs:12:12
+   |
+12 |     v.swap(*i + 1,*fin);
+   |            ^^
+
+error[E0606]: casting `&mut usize` as `u32` is invalid
+ --> src/main.rs:4:27
+  |
+4 |     let pivote: usize = v[fin as u32];
+  |                           ---^^^^^^^
+  |                           |
+  |                           cannot cast `&mut usize` as `u32`
+  |                           help: dereference the expression: `*fin`
+
+error[E0606]: casting `&u32` as `usize` is invalid
+ --> src/main.rs:6:22
+  |
+6 |     for j in inicio..&(*fin as u32 - 1) as usize {
+  |                      ------------------^^^^^^^^^
+  |                      |
+  |                      cannot cast `&u32` as `usize`
+  |                      help: dereference the expression: `*&(*fin as u32 - 1)`
+
+error[E0308]: mismatched types
+  --> src/main.rs:19:23
+   |
+19 |     quickSort(v, inicio, (pivote as u32 - 1 ) as usize);
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                          |
+   |                          expected `&mut usize`, found `usize`
+   |                          help: consider mutably borrowing here: `&mut ((pivote as u32 - 1 ) as usize)`
+
+error[E0308]: mismatched types
+  --> src/main.rs:20:15
+   |
+20 |     quickSort(v, (pivote as u32 + 1) as usize, fin);
+   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                  |
+   |                  expected `&mut usize`, found `usize`
+   |                  help: consider mutably borrowing here: `&mut ((pivote as u32 + 1) as usize)`
+
+error[E0308]: mismatched types
+  --> src/main.rs:34:22
+   |
+34 |     quickSort(&mut v,0 as usize,(v.len() as u32 - 1) as usize);
+   |                      ^^^^^^^^^^
+   |                      |
+   |                      expected `&mut usize`, found `usize`
+   |                      help: consider mutably borrowing here: `&mut (0 as usize)`
+
+error[E0308]: mismatched types
+  --> src/main.rs:34:33
+   |
+34 |     quickSort(&mut v,0 as usize,(v.len() as u32 - 1) as usize);
+   |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |                                 |
+   |                                 expected `&mut usize`, found `usize`
+   |                                 help: consider mutably borrowing here: `&mut ((v.len() as u32 - 1) as usize)`
+
+error: aborting due to 12 previous errors
+
+Some errors have detailed explanations: E0277, E0308, E0606, E0614.
+For more information about an error, try `rustc --explain E0277`.
+error: could not compile `stadistics`
+
+To learn more, run the command again with --verbose.
